@@ -1,0 +1,82 @@
+/* A water garden: FFX's deep blue, luminous aqua, paper white and fine gold. */
+.hero {min-height:760px;background:radial-gradient(ellipse at 20% 80%,#0b728d66,transparent 48%),radial-gradient(ellipse at 45% 8%,#4a96ab36,transparent 48%),linear-gradient(118deg,#021929,#073c58 55%,#031c35)}
+.hero:before {inset:48% -20% -35%;background:repeating-radial-gradient(ellipse at 42% 40%,transparent 0 55px,#a5f3ff12 57px,transparent 59px 95px);transform:rotate(-12deg);mask-image:linear-gradient(transparent,#000 35%,transparent)}
+.hero:after {width:760px;height:760px;right:auto;left:-340px;top:-350px;border-color:#c1e9ec14;box-shadow:0 0 0 65px #a5eaff04,0 0 0 130px #a5eaff03}
+.hero-copy:before {content:"";display:none}
+.hero-title-en {display:block;font:400 clamp(34px,4vw,60px)/1.2 var(--serif);letter-spacing:.13em;padding-bottom:25px;margin:20px 0 28px;border-bottom:1px solid #bdefff40}
+.hero h1 {font-size:clamp(30px,3.2vw,46px);line-height:1.8;margin-top:0}
+.hero-copy>.eyebrow {color:#a6e7ed;letter-spacing:.2em}
+.primary-button {background:transparent;border-color:#8ed7e47a;padding:16px 25px}
+.hero-profile {margin-top:26px}
+.journey-art {height:490px;max-width:530px;justify-self:center}
+.journey-art:before {inset:9% 0 5%;border:0;border-radius:50%;background:radial-gradient(ellipse,#46c6de18,transparent 68%);box-shadow:none}
+.journey-art:after {inset:12% 8% 8%;border:1px solid #a4ecf11c;border-radius:50%;transform:rotate(-24deg);box-shadow:0 0 0 36px #a5eaff03}
+.art-heading {left:0;right:0;top:0;color:#a9d9e3;font-size:9px}
+.art-year {font-size:124px;top:54px;left:7px;color:#a9e8ed15;letter-spacing:.08em}
+.art-caption {position:absolute;top:42%;left:4%;font:15px/2.1 var(--serif);letter-spacing:.2em;color:#c3edf1;writing-mode:vertical-rl}
+.art-destination {position:absolute;top:8%;left:64%;font:9px var(--serif);color:#c9e9ec;letter-spacing:.16em;display:flex;align-items:center;gap:10px}
+.art-destination:before {content:"";width:5px;height:5px;background:#d2f6f4;transform:rotate(45deg);box-shadow:0 0 16px #b9f4f4}
+.art-foot {left:0;right:0;bottom:-6px;padding-top:16px;border-top:1px solid #b2edf326;font-size:10px}
+.art-foot .tiny-dot {background:#a2e7e2}
+.art-waterline {position:absolute;left:12%;right:0;top:42%;height:36%;border:1px solid #abe6ed12;border-radius:50%;transform:rotate(-14deg);box-shadow:0 0 0 35px #abe6ed04,0 0 0 75px #abe6ed03;pointer-events:none}
+.water-footprints {position:absolute;pointer-events:none;inset:0}
+.water-step {position:absolute;width:24px;height:46px;transform:translate(-50%,-50%);color:#9ed4dc}
+.footprint-shape {position:absolute;inset:0;display:block;transform:rotate(var(--foot-turn)) scaleX(var(--foot-side));opacity:0;transition:opacity .35s}
+.footprint-shape svg {width:100%;height:100%;filter:drop-shadow(0 0 7px #7bdde760)}
+.is-landed .footprint-shape {opacity:.58}
+.is-current .footprint-shape {opacity:1;color:#d0fbf6}
+.water-ripple {position:absolute;top:50%;left:50%;width:112px;height:60px;border:1px solid currentColor;border-radius:50%;opacity:0;transform:translate(-50%,-50%) scale(.15)}
+.water-footprints[data-still="true"] .is-current .footprint-shape {color:inherit}
+.chapter-nav {max-width:1060px;padding:52px 30px 58px;gap:0}
+.chapter-nav b {border-radius:0;transform:rotate(45deg);width:34px;height:34px;font-size:0;margin-bottom:24px;background:linear-gradient(135deg,#effafd,#fff)}
+.chapter-nav b:after {content:attr(data-chapter);font:13px var(--serif);transform:rotate(-45deg)}
+.journey-section {position:relative;gap:70px;grid-template-columns:.85fr 1.15fr;padding-top:112px;padding-bottom:110px}
+.journey-section:before {content:"";position:absolute;inset:0 calc((100vw - 100%)/-2);z-index:-1;background:radial-gradient(ellipse at 78% 32%,#bfeaf24a,transparent 55%),linear-gradient(#f8fbfc,#edf7f9 80%,#f8fbfc)}
+.journey-intro {top:138px}
+.journey-intro h2 {font-size:clamp(28px,3vw,41px)}
+.journey-intro .section-description {line-height:2.5}
+.journey-water-note {display:flex;gap:12px;align-items:center;margin-top:32px;color:#176b8a;font-size:11px;letter-spacing:.05em}
+.journey-water-note svg {flex-shrink:0}
+.journey-intro .interaction-hint {margin-top:15px}
+.year-marker {font-size:100px;color:#15789824;margin-top:40px}
+.timeline {padding-left:112px;margin-left:0}
+.water-footprints--trail {inset:0 auto 30px 0;width:90px;background:radial-gradient(ellipse at center,#83c7dc16,transparent 68%)}
+.water-footprints--trail .water-step {width:18px;height:36px;color:#3289a4}
+.water-footprints--trail .is-current .footprint-shape {color:#087290}
+.water-footprints--trail .water-ripple {width:88px;height:58px;border-color:#2087a39e}
+.water-footprints--trail .footprint-shape svg {filter:drop-shadow(0 2px 5px #1584a326)}
+.milestone {padding-bottom:68px}
+.milestone-date {margin-bottom:15px;gap:12px}
+.milestone-date time {font-size:23px}
+.milestone-date>span {font-size:9px;letter-spacing:.14em}
+.milestone-button {background:#ffffffa6;border:0;border-top:1px solid #6da6b854;box-shadow:none;padding:24px 26px 26px}
+.milestone-button:before {content:"";position:absolute;left:-20px;top:-3px;width:5px;height:5px;background:#bfa06a;transform:rotate(45deg)}
+.milestone-button:hover {border-color:#1389ac;background:#fff;box-shadow:0 20px 50px #125a8210;transform:translateY(-4px)}
+.milestone h3 {font-size:20px;line-height:1.9}
+.milestone-icon {color:#4b8d9f}
+.milestone-button>p {font-size:13px;line-height:2.1}
+.small-note {font-size:11px;line-height:2.1}
+.timeline-continuation {font-family:var(--serif);letter-spacing:.1em;color:#467b8b}
+.timeline-continuation>span {display:none}
+.works-section {padding-top:95px}
+.project {padding:0 0 28px;border:0;background:transparent;box-shadow:none}
+.project-visual {height:290px}
+.project-meta,.project-title,.project-summary,.project>.tags,.project>.text-link {margin-left:0;margin-right:0}
+.project-title {width:100%}
+.project-title h3 {font-size:29px}
+.about-section {background:radial-gradient(ellipse at 0 80%,#14708455,transparent 65%),#031c35}
+.about-section:before {border-color:#9fdfec24;box-shadow:0 0 0 75px #a5eaff03}
+.motion-toggle {position:fixed;z-index:35;right:22px;bottom:22px;display:flex;align-items:center;gap:8px;border:1px solid #7ba6b65c;background:#f8fbf0ed;color:#254b60;backdrop-filter:blur(15px);padding:11px 15px;font-size:11px;box-shadow:0 5px 25px #052c3b12}
+.motion-toggle:hover {background:#fff}
+.footer {padding-bottom:80px}
+@media(min-width:1500px){.journey-art{height:510px}.hero{min-height:820px}}
+@media(max-width:1100px){.journey-section{gap:40px;grid-template-columns:.8fr 1.2fr}.timeline{padding-left:94px}.water-footprints--trail{width:76px}.milestone-date time{font-size:20px}.milestone h3{font-size:18px}.milestone-button{padding:22px}.journey-art{height:440px}.art-year{font-size:100px}}
+@media(max-width:900px){html{scroll-padding-top:96px}.hero{min-height:0;padding-top:65px;gap:50px}.hero-title-en{font-size:38px;margin:18px 0 25px;padding-bottom:22px}.journey-art{height:400px;max-width:430px;width:100%;margin:0 auto 20px}.art-year{font-size:100px;top:46px}.art-caption{font-size:13px}.journey-section{grid-template-columns:1fr;gap:48px;padding-top:65px;padding-bottom:70px}.journey-intro{top:auto}.journey-intro h2{font-size:32px}.journey-intro .section-description{font-size:13px}.year-marker{font-size:80px;bottom:85px}.journey-water-note{margin-top:24px;font-size:10px}.timeline{padding-left:96px;max-width:650px;width:100%;margin:auto}.water-footprints--trail{width:74px}.milestone{padding-bottom:60px}.milestone h3{font-size:20px}.chapter-nav{padding:40px 20px;gap:0}.works-section{padding-top:65px}.project-visual{height:280px}}
+@media(max-width:480px){.hero{padding-top:47px;gap:40px}.hero-title-en{font-size:30px;letter-spacing:.12em}.hero h1{font-size:29px}.hero-copy>.eyebrow{font-size:7px;letter-spacing:.12em}.journey-art{height:330px;margin-top:5px}.art-year{font-size:86px;top:40px}.art-caption{font-size:11px;left:0}.art-destination{font-size:7px;left:61%}.water-footprints--hero .water-step{width:19px;height:37px}.water-footprints--hero .water-ripple{width:85px;height:48px}.art-foot{font-size:9px}.art-foot>span:last-child{font-size:7px}.journey-intro h2{font-size:28px}.year-marker{font-size:64px;bottom:100px}.timeline{padding-left:65px}.water-footprints--trail{width:48px}.water-footprints--trail .water-step{width:14px;height:28px}.water-footprints--trail .water-ripple{width:62px;height:40px}.milestone-date{flex-wrap:wrap;gap:6px}.milestone-date time{font-size:21px}.milestone-date>span{font-size:8px}.milestone-button{padding:18px 16px 22px}.milestone h3{font-size:17px}.milestone-button>p{font-size:12px}.milestone-button:before{left:-13px}.milestone{padding-bottom:48px}.chapter-nav strong{font-size:11px}.chapter-nav small{font-size:9px}.chapter-nav b{width:30px;height:30px}.motion-toggle{right:12px;bottom:12px;font-size:10px;padding:9px 12px}.project-title h3{font-size:26px}}
+@media(prefers-reduced-motion:reduce){.footprint-shape{opacity:.58}.water-ripple{display:none}}
+.motion-off .footprint-shape {opacity:.58}
+.motion-off .water-ripple {display:none}
+@media(max-width:900px){.journey-intro .year-marker{position:static;margin-top:28px;font-size:64px;gap:10px}.journey-intro .year-marker span{font-size:8px;letter-spacing:.2em}}
+@media(max-width:360px){.header{gap:8px;padding-inline:14px}.header nav{gap:12px}.header .brand{font-size:23px}.github-header{font-size:9px}.hero h1{font-size:26px}.journey-intro h2{font-size:25px}.milestone h3{font-size:16px}}
+.header nav a {white-space:nowrap}
+@media(max-width:360px){.header nav{gap:10px}.header nav a{font-size:9px}.journey-intro h2{font-size:22px;letter-spacing:.03em}}
