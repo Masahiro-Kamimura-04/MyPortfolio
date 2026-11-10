@@ -1,5 +1,9 @@
 # vinext-starter
 
+## このポートフォリオのGitHub Pages公開
+
+`npm run build:pages` で `dist/pages/` に静的サイトを生成します。初回設定と公開手順は[リポジトリのREADME](../README.md#github-pagesで公開する)を参照してください。以下は既存のSites / Cloudflare開発環境の説明です。
+
 A clean full-stack starter running on [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and Drizzle support.
 
 ## Prerequisites

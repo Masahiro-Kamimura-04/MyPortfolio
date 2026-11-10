@@ -4,7 +4,8 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = fileURLToPath(new URL("../", import.meta.url));
-const target = resolve(projectRoot, "../previews/index.html");
+const pagesBuild = process.argv.includes("--pages");
+const target = resolve(projectRoot, pagesBuild ? "dist/pages/index.html" : "../previews/index.html");
 // A classic IIFE script and inline CSS also work when index.html is opened via file://.
 // No dev server, Cloudflare runtime, module requests, or network fonts are required.
 const result = await build({
@@ -45,4 +46,7 @@ const html = template
 if (/__PORTFOLIO_(ICON|CSS|JS)__/.test(html)) throw new Error("Unfilled preview template.");
 await mkdir(dirname(target), { recursive: true });
 await writeFile(target, html, "utf8");
-console.log(`\nStandalone HTML preview: ${target}\nOpen this file directly in your browser.\n`);
+if (pagesBuild) {
+  await writeFile(resolve(dirname(target), ".nojekyll"), "", "utf8");
+}
+console.log(`\n${pagesBuild ? "GitHub Pages build" : "Standalone HTML preview"}: ${target}\nOpen this file directly in your browser.\n`);
