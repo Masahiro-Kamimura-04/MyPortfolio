@@ -35,3 +35,13 @@ npm run build
 ```
 
 構成や未実装の範囲は `DESIGN.md` にまとめています。
+
+## 軌跡の足跡
+
+`content/portfolio.ts` の `milestones` に追加した情報ごとに、足跡が1つ生成されます。表示順に左右の足が交互に動きます。PCの情報カードも左右交互です。動きの制御は `components/journey-timeline.tsx`、移動位置の計算は `lib/journey-walk.ts`、見た目は `app/water-journey.css` の末尾で変更できます。
+
+動きの計算を変更したら、次のコマンドで確認してください。
+
+```powershell
+npm run test:journey
+```
