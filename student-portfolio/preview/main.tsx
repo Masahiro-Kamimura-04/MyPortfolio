@@ -3,6 +3,7 @@ import Home from "../app/page";
 import "../app/globals.css";
 import "../app/journey-theme.css";
 import "../app/water-journey.css";
+import "../app/mobile.css";
 
 // Use the real page so the HTML preview stays in sync with the application.
 const root = document.getElementById("portfolio-root");

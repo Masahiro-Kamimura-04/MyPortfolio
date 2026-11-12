@@ -27,8 +27,8 @@ export function JourneyTimeline({ paused, onSelect }: { paused: boolean; onSelec
     function measure() {
       if (!root) return;
       const bounds = root.getBoundingClientRect();
-      const compact = window.innerWidth <= 640;
-      const center = compact ? 31 : bounds.width / 2;
+      const compact = window.innerWidth <= 760;
+      const center = compact ? 22 : bounds.width / 2;
       const sway = compact ? 7 : Math.min(40, bounds.width * .035);
       targets = cards.map((card, index) => {
         const box = card.querySelector(".milestone-button")!.getBoundingClientRect();

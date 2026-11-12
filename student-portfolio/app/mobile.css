@@ -1,0 +1,139 @@
+/* Narrow screens: readable copy, generous touch targets, and a compact journey. */
+.mobile-works-link, .mobile-motion-control { display: none; }
+
+@media (max-width: 760px) {
+  html { scroll-padding-top: 124px; }
+  .wrap { width: calc(100% - 36px); }
+
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0 16px;
+    width: 100%;
+    height: auto;
+    padding: 6px 18px 0;
+  }
+  .header .brand { min-height: 44px; align-items: center; font-size: 26px; }
+  .header .brand:before { top: 3px; }
+  .header .github-header { grid-column: 2; grid-row: 1; min-height: 44px; padding-inline: 8px; font-size: 13px; gap: 8px; }
+  .header nav { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--line); }
+  .header nav a { min-height: 52px; justify-content: center; padding: 6px 4px; font-size: 13px; letter-spacing: .03em; }
+  .header nav a span { display: block; font-size: 10px; }
+
+  .hero { width: 100%; padding: 32px 20px 76px; gap: 24px; }
+  .hero-copy > .eyebrow { font-size: 9px; letter-spacing: .08em; gap: 7px; }
+  .hero-title-en { font-size: 30px; margin: 14px 0 20px; padding-bottom: 16px; }
+  .hero h1 { font-size: clamp(26px, 6.8vw, 34px); line-height: 1.65; letter-spacing: .02em; margin-bottom: 16px; }
+  .hero-description { font-size: 15px; line-height: 1.9; letter-spacing: .02em; }
+  .hero-profile { flex-wrap: wrap; gap: 8px 12px; margin-top: 20px; }
+  .hero-profile span { font-size: 12px; padding-left: 12px; }
+  .hero-actions { display: flex; flex-direction: column; align-items: stretch; gap: 8px; max-width: 340px; margin: 24px auto 0; }
+  .hero-actions .primary-button, .mobile-works-link { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; margin: 0; padding: 10px 14px; font-size: 14px; }
+  .mobile-works-link { background: #d3f3f6; color: #123d55; border: 1px solid #a4e6ed; }
+  .mobile-works-link:hover { background: #fff; }
+  .journey-art { height: 200px; max-width: 360px; margin: 0 auto 12px; }
+  .art-year { font-size: 68px; top: 30px; }
+  .art-caption { display: none; }
+  .art-heading { font-size: 9px; letter-spacing: .06em; }
+  .art-destination { font-size: 8px; left: 58%; letter-spacing: .06em; }
+  .art-foot { font-size: 10px; padding-top: 10px; }
+  .art-foot > span:last-child { font-size: 8px; }
+  .hero-bottom { left: 20px; right: 20px; bottom: 12px; padding: 0; font-size: 9px; letter-spacing: .06em; }
+  .hero-bottom > span:nth-child(2) { display: none; }
+  .hero-bottom a { min-height: 44px; }
+
+  .chapter-nav { padding: 30px 12px; gap: 0; }
+  .chapter-nav a { padding: 10px 6px; }
+  .chapter-nav b { margin-bottom: 18px; }
+  .chapter-nav strong { font-size: 12px; letter-spacing: .08em; }
+  .chapter-nav small { font-size: 12px; }
+  .section { padding-block: 56px; }
+  .section-label { font-size: 12px; letter-spacing: .16em; margin-bottom: 18px; }
+  .section-description, .journey-intro .section-description { font-size: 15px; line-height: 2; }
+  .section-description br { display: none; }
+  .section-heading { display: block; margin-bottom: 28px; }
+  .section-heading .section-description { margin-top: 18px; max-width: none; }
+  .journey-section .journey-intro { text-align: left; margin-bottom: 28px; }
+  .journey-section .journey-intro h2 { font-size: clamp(24px, 5.9vw, 32px); letter-spacing: .02em; }
+  .journey-intro .section-label, .journey-intro .journey-water-note, .journey-intro .interaction-hint { justify-content: flex-start; }
+  .journey-section .journey-intro .year-marker { justify-content: flex-start; font-size: 32px; gap: 14px; }
+  .journey-intro .year-marker span { font-size: 10px; }
+  .journey-intro .journey-water-note, .journey-intro .interaction-hint { font-size: 12px; line-height: 1.9; align-items: flex-start; }
+  .journey-water-note svg { margin-top: 4px; }
+  .hint-line { flex-shrink: 0; margin-top: 11px; }
+  .journey-timeline { padding-top: 24px; }
+  .journey-timeline .milestone,
+  .journey-timeline .milestone:nth-of-type(odd),
+  .journey-timeline .milestone:nth-of-type(even) {
+    width: calc(100% - 56px);
+    min-height: 0;
+    margin: 0 0 0 56px;
+    padding-bottom: 36px;
+  }
+  .journey-timeline .milestone:after { display: none; }
+  .journey-timeline .milestone-date { flex-wrap: wrap; gap: 6px 12px; }
+  .journey-timeline .milestone-date time { font-size: 22px; }
+  .journey-timeline .milestone-date > span { font-size: 10px; letter-spacing: .08em; }
+  .journey-timeline .milestone-button { padding: 20px 16px; }
+  .journey-timeline .milestone h3 { font-size: 19px; line-height: 1.8; letter-spacing: .01em; }
+  .journey-timeline .milestone-button > p { font-size: 14px; line-height: 1.9; }
+  .read-story, .small-note, .small-note > span { font-size: 12px; }
+  .journey-light-node .journey-ripple { width: 52px; height: 38px; }
+  .journey-node-number { left: 10px; font-size: 10px; }
+  .journey-next { text-align: left; padding: 20px 0 0 56px; font-size: 14px; }
+  .journey-next > span { position: absolute; left: 13px; top: 12px; }
+
+  .works-grid { gap: 36px; min-width: 0; }
+  .project { min-width: 0; padding: 0; }
+  .project-visual { height: 260px; }
+  .project-meta { flex-wrap: wrap; justify-content: flex-start; gap: 8px 16px; font-size: 11px; line-height: 1.7; margin-top: 18px; }
+  .project-status { font-size: 12px; }
+  .project-title { min-height: 48px; }
+  .project-title h3 { font-size: clamp(23px, 6vw, 29px); overflow-wrap: anywhere; }
+  .project-title svg { flex-shrink: 0; }
+  .project-summary { font-size: 15px; line-height: 2; min-height: 0; }
+  .tags > span { font-size: 12px; overflow-wrap: anywhere; max-width: 100%; }
+  .text-link { min-height: 48px; max-width: 100%; font-size: 14px; margin-top: 16px; padding-block: 8px; gap: 12px; }
+  .visual-label { font-size: 11px; right: 12px; }
+  .moocs-diagram { width: calc(100% - 24px); transform: none; }
+  .moocs-top > span:last-child { display: none; }
+  .moocs-top, .mini-list > p { font-size: 11px; }
+  .moocs-body { gap: 10px; padding: 12px 10px; }
+  .mini-list > div { font-size: 10px; gap: 5px; }
+  .mini-check { flex-shrink: 0; }
+  .mini-list-foot { font-size: 9px; }
+
+  .about-section { padding-block: 56px; }
+  .about-grid { gap: 28px; }
+  .about-copy { font-size: 15px; line-height: 2; }
+  .about-copy > p br { display: none; }
+  .profile-block { gap: 16px; }
+  .profile-block p { font-size: 13px; }
+  .profile-monogram { flex-shrink: 0; }
+  .interests > p { font-size: 14px; }
+  .interests small { font-size: 13px; }
+  .next-section { display: block; }
+  .next-section > div > p:last-child { font-size: 15px; }
+  .github-link { min-width: 0; gap: 16px; margin-top: 24px; }
+  .github-link > span { font-size: 14px; min-width: 0; }
+  .github-link small { font-size: 11px; overflow-wrap: anywhere; }
+  .github-link > svg { flex-shrink: 0; }
+  .motion-toggle { display: none; }
+  .mobile-motion-control { display: flex; align-items: center; justify-content: center; min-height: 44px; gap: 8px; padding: 8px; background: transparent; color: #c8e7ed; font-size: 12px; }
+  .footer { width: 100%; flex-wrap: wrap; gap: 16px; padding: 24px 18px calc(24px + env(safe-area-inset-bottom)); }
+  .footer > span { font-size: 11px; }
+  .footer .brand, .back-top, .motion-control { min-height: 44px; display: inline-flex; align-items: center; }
+  .back-top, .motion-control { font-size: 12px; }
+  .back-top { min-width: 44px; justify-content: center; }
+  .motion-control { order: 4; width: 100%; }
+
+  .story-dialog { width: calc(100% - 24px); max-height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); overflow-y: auto; }
+  .story-inner { padding: 0 20px 24px; }
+  .story-top { position: sticky; top: 0; z-index: 1; margin: 0 -20px 20px; padding: 10px 12px 10px 20px; background: #f4fafc; border-bottom: 1px solid var(--line); }
+  .story-top > .eyebrow { font-size: 10px; letter-spacing: .08em; overflow-wrap: anywhere; }
+  .dialog-close { min-width: 44px; min-height: 44px; justify-content: center; align-items: center; }
+  .story-dialog h2 { font-size: 26px; overflow-wrap: anywhere; }
+  .story-lead, .story-section p { font-size: 15px; line-height: 2; }
+  .story-section h3 { font-size: 16px; }
+  .story-back { min-height: 48px; justify-content: center; width: 100%; font-size: 14px; }
+}
