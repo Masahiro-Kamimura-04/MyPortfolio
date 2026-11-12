@@ -1,19 +1,9 @@
 "use client";
 
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useEffect, useRef } from "react";
 import { ArrowRight, ArrowUpRight, BookOpen, Code2, GitBranch } from "lucide-react";
 import { milestones, type Story } from "../content/portfolio";
-import { getWalkFrame, type StepPoint } from "../lib/journey-walk";
-
-function Footprint() {
-  return <svg viewBox="0 0 24 48" fill="currentColor" aria-hidden="true">
-    <ellipse cx="8" cy="7" rx="4" ry="5"/>
-    <ellipse cx="15" cy="6" rx="2.5" ry="3.3"/>
-    <ellipse cx="20" cy="9" rx="2" ry="2.8"/>
-    <ellipse cx="22" cy="14" rx="1.5" ry="2"/>
-    <path d="M4 17C5 11 17 12 19 18C21 24 14 27 14 32C14 36 17 39 14 43C11 48 4 46 3 41C2 36 7 32 6 28C5 24 2 22 4 17Z"/>
-  </svg>;
-}
+import { createRoutePath, getLineFrame, type RoutePoint } from "../lib/journey-line";
 
 export function JourneyTimeline({ paused, onSelect }: { paused: boolean; onSelect: (story: Story) => void }) {
   const timeline = useRef<HTMLDivElement>(null);
@@ -22,14 +12,16 @@ export function JourneyTimeline({ paused, onSelect }: { paused: boolean; onSelec
     const root = timeline.current;
     if (!root) return;
     const cards = Array.from(root.querySelectorAll<HTMLElement>(".milestone"));
-    const prints = Array.from(root.querySelectorAll<HTMLElement>(".journey-landing"));
-    const mover = root.querySelector<HTMLElement>(".journey-moving")!;
+    const nodes = Array.from(root.querySelectorAll<HTMLElement>(".journey-light-node"));
+    const tip = root.querySelector<HTMLElement>(".journey-line-tip")!;
     const svg = root.querySelector<SVGSVGElement>(".journey-route")!;
-    const path = svg.querySelector("path")!;
+    const track = svg.querySelector<SVGPathElement>(".journey-route-track")!;
+    const active = svg.querySelector<SVGPathElement>(".journey-route-active")!;
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let targets: StepPoint[] = [];
+    let targets: RoutePoint[] = [];
+    let length = 0;
     let frame = 0;
-    let previousLanded = -1;
+    let previousReached = -1;
     let needsLayout = true;
 
     function measure() {
@@ -38,29 +30,19 @@ export function JourneyTimeline({ paused, onSelect }: { paused: boolean; onSelec
       const compact = window.innerWidth <= 640;
       const center = compact ? 31 : bounds.width / 2;
       const sway = compact ? 7 : Math.min(40, bounds.width * .035);
-      const stride = compact ? 8 : 19;
-      const centers: StepPoint[] = [];
       targets = cards.map((card, index) => {
         const box = card.querySelector(".milestone-button")!.getBoundingClientRect();
-        const y = box.top - bounds.top + box.height / 2;
         const fraction = (index + .5) / cards.length;
-        const x = center - Math.sin(fraction * Math.PI * 2) * sway;
-        centers.push({ x, y });
-        return { x: x + (index % 2 ? stride : -stride), y };
+        return { x: center - Math.sin(fraction * Math.PI * 2) * sway, y: box.top - bounds.top + box.height / 2 };
       });
-      const points = [{ x: center, y: 0 }, ...centers, { x: center, y: bounds.height - 38 }];
-      let route = `M ${points[0].x} ${points[0].y}`;
-      for (let i = 1; i < points.length; i++) {
-        const from = points[i - 1];
-        const to = points[i];
-        const middle = (from.y + to.y) / 2;
-        route += ` C ${from.x} ${middle}, ${to.x} ${middle}, ${to.x} ${to.y}`;
-      }
+      const route = createRoutePath([{ x: center, y: 0 }, ...targets, { x: center, y: bounds.height - 38 }]);
       svg.setAttribute("viewBox", `0 0 ${bounds.width} ${bounds.height}`);
-      path.setAttribute("d", route);
-      prints.forEach((print, index) => {
-        print.style.left = `${targets[index].x}px`;
-        print.style.top = `${targets[index].y}px`;
+      track.setAttribute("d", route);
+      active.setAttribute("d", route);
+      length = track.getTotalLength();
+      nodes.forEach((node, index) => {
+        node.style.left = `${targets[index].x}px`;
+        node.style.top = `${targets[index].y}px`;
       });
       needsLayout = false;
     }
@@ -71,42 +53,36 @@ export function JourneyTimeline({ paused, onSelect }: { paused: boolean; onSelec
       if (needsLayout) measure();
       const bounds = root.getBoundingClientRect();
       const still = paused || media.matches;
-      const cursor = window.innerHeight * .62 - bounds.top;
-      const state = getWalkFrame(still ? Infinity : cursor, targets);
+      const cursor = still ? Infinity : window.innerHeight * .62 - bounds.top;
+      const state = getLineFrame(cursor, length, distance => track.getPointAtLength(distance));
+      const reached = targets.filter(target => cursor >= target.y).length;
       const visible = bounds.bottom > 0 && bounds.top < window.innerHeight;
       root.dataset.still = String(still);
-      root.dataset.activeStep = String(state.landed);
-      mover.hidden = still || state.movingIndex < 0 || !visible;
-      if (!mover.hidden) {
-        mover.dataset.side = state.movingIndex % 2 ? "right" : "left";
-        mover.dataset.step = String(state.movingIndex + 1);
-        mover.style.left = `${state.x}px`;
-        mover.style.top = `${state.y}px`;
-        mover.style.setProperty("--foot-side", state.movingIndex % 2 ? "-1" : "1");
-        mover.style.setProperty("--lift-scale", String(1 + state.lift * .2));
-        mover.style.setProperty("--lift-angle", `${180 + state.lift * (state.movingIndex % 2 ? -12 : 12)}deg`);
-      }
-      prints.forEach((print, index) => {
-        const landed = index < state.landed;
-        print.classList.toggle("is-landed", landed);
-        print.classList.toggle("is-current", index === state.landed - 1);
-        cards[index].dataset.reached = String(landed);
-        if (still || !visible || !landed) {
-          print.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
-        }
+      root.dataset.activeStep = String(reached);
+      root.dataset.lineProgress = state.progress.toFixed(4);
+      active.style.strokeDashoffset = String(1 - state.progress);
+      active.style.opacity = state.progress > 0 ? "1" : "0";
+      tip.hidden = still || state.progress <= 0 || state.progress >= 1 || !visible;
+      tip.style.left = `${state.x}px`;
+      tip.style.top = `${state.y}px`;
+      nodes.forEach((node, index) => {
+        node.classList.toggle("is-reached", index < reached);
+        node.classList.toggle("is-current", index === reached - 1);
+        cards[index].dataset.reached = String(index < reached);
+        if (still || !visible || index >= reached) node.getAnimations({ subtree: true }).forEach(animation => animation.cancel());
       });
-      // Fast scrolls settle at the newest landing without overlapping foot motions.
-      if (!still && visible && previousLanded >= 0 && state.landed > previousLanded) {
-        prints.forEach(print => print.getAnimations({ subtree: true }).forEach(animation => animation.cancel()));
-        prints[state.landed - 1].querySelectorAll(".journey-ripple").forEach((ring, index) => {
+      // A quick scroll emphasizes only the latest reached record.
+      if (!still && visible && previousReached >= 0 && reached > previousReached) {
+        nodes.forEach(node => node.getAnimations({ subtree: true }).forEach(animation => animation.cancel()));
+        nodes[reached - 1].querySelectorAll(".journey-ripple").forEach((ring, index) => {
           ring.animate([
-            { opacity: .7, transform: "translate(-50%, -50%) scale(.12)" },
-            { opacity: .32, offset: .35 },
-            { opacity: 0, transform: "translate(-50%, -50%) scale(1.35)" },
-          ], { duration: 2000, delay: index * 180, easing: "cubic-bezier(.16,.6,.4,1)" });
+            { opacity: .6, transform: "translate(-50%, -50%) scale(.12)" },
+            { opacity: .25, offset: .35 },
+            { opacity: 0, transform: "translate(-50%, -50%) scale(1.2)" },
+          ], { duration: 1600, delay: index * 180, easing: "cubic-bezier(.16,.6,.4,1)" });
         });
       }
-      previousLanded = state.landed;
+      previousReached = reached;
     }
 
     function schedule() { if (!frame) frame = requestAnimationFrame(update); }
@@ -124,22 +100,22 @@ export function JourneyTimeline({ paused, onSelect }: { paused: boolean; onSelec
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", resize);
       media.removeEventListener("change", schedule);
-      prints.forEach(print => print.getAnimations({ subtree: true }).forEach(animation => animation.cancel()));
+      nodes.forEach(node => node.getAnimations({ subtree: true }).forEach(animation => animation.cancel()));
     };
   }, [paused]);
 
   return <div className="journey-timeline" ref={timeline}>
     <div className="journey-waterway" aria-hidden="true">
-      <svg className="journey-route" preserveAspectRatio="none"><path fill="none"/></svg>
-      {milestones.map((milestone, index) => <span
-        className="journey-print journey-landing" key={milestone.id} data-step={index + 1}
-        data-side={index % 2 ? "right" : "left"}
-        style={{ "--foot-side": index % 2 ? -1 : 1, top: `${(index + .5) / milestones.length * 100}%` } as CSSProperties}>
-        <i className="journey-ripple"/><i className="journey-ripple"/><i className="journey-ripple"/>
-        <span className="journey-foot"><Footprint/></span>
-        <span className="journey-step-number">0{index + 1}</span>
+      <svg className="journey-route" preserveAspectRatio="none">
+        <path className="journey-route-track" fill="none"/>
+        <path className="journey-route-active" fill="none" pathLength="1"/>
+      </svg>
+      {milestones.map((milestone, index) => <span className="journey-light-node" key={milestone.id} data-step={index + 1}>
+        <i className="journey-ripple"/><i className="journey-ripple"/>
+        <span className="journey-node-core"/>
+        <span className="journey-node-number">0{index + 1}</span>
       </span>)}
-      <span className="journey-print journey-moving" hidden><span className="journey-foot"><Footprint/></span></span>
+      <span className="journey-line-tip" hidden/>
     </div>
     {milestones.map((milestone, index) => <article className="milestone" key={milestone.id} aria-labelledby={`milestone-${milestone.id}`}>
       <div className="milestone-date"><time dateTime={milestone.date}>{milestone.displayDate}</time><span>{milestone.category}</span></div>

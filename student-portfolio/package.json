@@ -6,7 +6,7 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "test:journey": "node --experimental-strip-types --test tests/journey-walk.test.mjs",
+    "test:journey": "node --experimental-strip-types --test tests/journey-line.test.mjs",
     "preview:html": "node scripts/build-preview.mjs",
     "install:ci": "node scripts/install-ci.mjs",
     "dev": "node scripts/run-framework.mjs dev",

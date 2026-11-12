@@ -20,7 +20,7 @@
 npm run preview:html
 ```
 
-HTMLにはスタイルとスクリプトが埋め込まれるため、開発サーバーなしで足跡・波紋・詳細画面を確認できます。ソースを変更した後は再生成してください。HTMLの外枠を編集する場合は `preview/index.html` を使います。
+HTMLにはスタイルとスクリプトが埋め込まれるため、開発サーバーなしで光の線・波紋・詳細画面を確認できます。ソースを変更した後は再生成してください。HTMLの外枠を編集する場合は `preview/index.html` を使います。
 ## ローカルで確認
 
 ```powershell
@@ -36,9 +36,11 @@ npm run build
 
 構成や未実装の範囲は `DESIGN.md` にまとめています。
 
-## 軌跡の足跡
+## 軌跡の光の線
 
-`content/portfolio.ts` の `milestones` に追加した情報ごとに、足跡が1つ生成されます。表示順に左右の足が交互に動きます。PCの情報カードも左右交互です。動きの制御は `components/journey-timeline.tsx`、移動位置の計算は `lib/journey-walk.ts`、見た目は `app/water-journey.css` の末尾で変更できます。
+`content/portfolio.ts` の `milestones` に追加した情報ごとに、光点が1つ生成されます。スクロールに合わせて曲線が伸び、情報に到達すると光点が灯って小さな波紋が広がります。PCの情報カードは左右交互です。
+
+動きの制御は `components/journey-timeline.tsx`、曲線上の位置の計算は `lib/journey-line.ts`、見た目は `app/water-journey.css` の末尾で変更できます。トップの光の線は `components/hero-light-line.tsx` です。
 
 動きの計算を変更したら、次のコマンドで確認してください。
 
